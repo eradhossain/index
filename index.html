@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Telegram Index Page</title>
+</head>
+<body>
+	<h1>Telegram Index Page</h1>
+	<ul id="channels"></ul>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		axios.get('https://api.telegram.org/bot5131704571:AAHmkjzWiovnI29uXVB12fbLwf0qVYpa4ow/getUpdates')
+		.then(function (response) {
+			var channels = response.data.result.map(function (update) {
+				return update.message.chat.title;
+			});
+			var channelsList = document.getElementById('channels');
+			channels.forEach(function (channel) {
+				var li = document.createElement('li');
+				li.appendChild(document.createTextNode(channel));
+				channelsList.appendChild(li);
+			});
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	</script>
+</body>
+</html>
